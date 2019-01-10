@@ -1,0 +1,406 @@
+//colors taken from psd
+$purple: #452e76;
+$light-blue: #60cbe1;
+$light-grey: #777777;
+$darker-blue: #41c1dd;
+
+//mixins
+@mixin transition($value){
+  transition: all $value ease-in-out;
+}
+
+@mixin animationAppear($value){
+  animation: appear $value forwards;
+}
+
+html {
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+}
+
+main {
+  height: 100%;
+}
+
+// had to lower the opacity of the background pattern since it made all the other
+// elements barely visible; not sure if that's cheating cause I was supposed to
+// write all the code by myself but I used the pseudo element as suggested
+// on StackOverflow
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+  background: url('../img/bg.png');
+  z-index: -1;
+  outline: none;
+}
+
+h1 {
+  color: $purple;
+  font-weight: bold;
+  text-align: center;
+  font-size: 3rem;
+  padding: 40px 0 20px;
+  margin: 0;
+  @include transition(0.4s);
+  opacity: 0;
+  @include animationAppear(0.8s);
+}
+
+//menu after clicking on a staff member
+.activeMember{
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 100;
+  overflow: hidden;
+  background: url('../img/background.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include transition(0.6s);
+
+  .leftArrow{
+    width: 100px;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: 0;
+    cursor: pointer;
+  }
+
+  .rightArrow{
+    width: 100px;
+    position: absolute;
+    top: calc(50% - 50px);
+    right: 0;
+    cursor: pointer;
+  }
+
+  .leftArrow:hover, .rightArrow:hover{
+    animation: breathing 1s infinite ease-in-out;
+  }
+
+  .closeX{
+    width: 50px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    cursor: pointer;
+  }
+
+  .closeX:hover{
+    transform: scale(1.2);
+    @include transition(0.6s);
+  }
+
+  .middlePart{
+    text-align: center;
+    position: absolute;
+    max-width: 75%;
+    color: #fff;
+    border: 4px dashed rgba(255, 255, 255, 0.3);
+    padding: 20px;
+
+        .activePosition{
+          font-size: 2.5rem;
+          font-weight: 100;
+          margin: 0;
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .activeName {
+          font-size: 4rem;
+          font-weight: bold;
+          margin: 0;
+          text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+        }
+    }
+}
+
+//classes that add simple animations, gonna toggle them on and off in JS
+.animatedUp {
+  opacity: 0;
+  @include animationAppear(0.3s);
+}
+
+.animatedDown {
+  opacity: 0;
+  animation: appearDown 0.3s forwards;
+}
+//hidden class, taking care of elements we dont wanna see for now, basically
+//enabling switching between the whole team menu and an active member menu
+.hidden {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  opacity:0;
+}
+
+section {
+  display: flex;
+  width: 800px;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  @include transition(0.8s);
+
+  .staffMember:nth-of-type(1){
+          animation-delay: 0.4s;
+        }
+        .staffMember:nth-of-type(2){
+          animation-delay: 0.6s;
+        }
+        .staffMember:nth-of-type(3){
+          animation-delay: 0.8s;
+        }
+        .staffMember:nth-of-type(4){
+          animation-delay: 1s;
+        }
+        .staffMember:nth-of-type(5){
+          animation-delay: 1.2s;
+        }
+
+  .staffMember:nth-of-type(10){
+          animation-delay: 0.4s;
+        }
+        .staffMember:nth-of-type(9){
+          animation-delay: 0.6s;
+        }
+        .staffMember:nth-of-type(8){
+          animation-delay: 0.8s;
+        }
+        .staffMember:nth-of-type(7){
+          animation-delay: 1s;
+        }
+        .staffMember:nth-of-type(6){
+          animation-delay: 1.2s;
+        }
+
+.staffMember {
+  text-align: center;
+  width: 160px;
+  margin: 15px auto;
+  position: relative;
+  @include transition(0.4s);
+  opacity: 0;
+  @include animationAppear(0.5s);
+
+  .mail {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $purple;
+    color: #fff;
+    position: absolute;
+    right: 28px;
+    top: 3px;
+    z-index: 1;
+  }
+
+  .mail:hover {
+    animation: breathing 1s ease-in-out infinite;
+  }
+
+  .filter {
+      width: 114px;
+      height: 114px;
+      overflow: hidden;
+      border-radius: 50%;
+      margin-left: auto;
+      margin-right: auto;
+      @include transition(0.4s);
+  }
+
+  .blueLayer {
+    background-color: $darker-blue;
+    opacity: 0.6;
+    position:absolute;
+    top: 0;
+    left: 20;
+    width: 114px;
+    height: 114px;
+    margin: auto;
+    border-radius: 50%;
+    @include transition(0.4s);
+    cursor: pointer;
+  }
+
+  .blueLayer:hover{
+    opacity: 0;
+  }
+
+  img {
+    width: 120px;
+    margin-left: -3px;
+    filter: grayscale(100%);
+    @include transition(0.4s);
+  }
+
+  .filter:hover img{
+    filter: none;
+  }
+
+  .name {
+    color: $purple;
+    font-weight: bold;
+    margin: 10px 0 5px;
+  }
+
+  .position, .location {
+    margin: 0;
+    font-size: 0.7rem;
+  }
+
+  .position{
+    color: $light-blue;
+  }
+
+  .location {
+    color: $light-grey;
+  }
+}
+}
+
+//some simple animations
+@keyframes breathing {
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+}
+
+@keyframes appear {
+  0%{opacity:0;
+  transform: translateY(-10px)}
+  100%{opacity:1;
+  transform: translateY(0)}
+}
+
+@keyframes appearDown {
+  0%{opacity:0;
+  transform: translateY(10px)}
+  100%{opacity:1;
+  transform: translateY(0)}
+}
+
+//media queries
+@media screen and (max-width: 800px){
+  body{
+    height: 100%;
+  }
+
+  section {
+    width: 90%;
+  }
+
+  .hidden{
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+.activeMember{
+  .rightArrow{
+    width: 50px;
+    top: calc(50% - 25px);
+  }
+
+  .leftArrow{
+    width: 50px;
+    top: calc(50% - 25px);
+  }
+
+  .closeX {
+    width: 30px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .middlePart{
+    padding: 10px;
+    .activePosition{
+      font-size: 1.4rem;
+    }
+
+    .activeName {
+      font-size: 2.5rem;
+    }
+  }
+  }
+  }
+
+  @media screen and (max-width: 430px){
+    .activeMember .middlePart{
+      border: 2px dashed rgba(255, 255, 255, 0.3);
+      padding: 5px;
+
+      .activePosition{
+        font-size: 1.3rem;
+      }
+      .activeName {
+        font-size: 2rem;
+      }
+    }
+  }
+
+@media screen and (min-width: 1300px){
+  h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+  }
+
+  section {
+    width: 1200px;
+
+    .staffMember {
+      width: 220px;
+
+      .mail {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        position: absolute;
+        right: 40px;
+        top: 3px;
+      }
+
+        .filter {
+            width: 154px;
+            height: 154px;
+        }
+
+        .blueLayer {
+          width: 154px;
+          height: 154px;
+        }
+
+      img {
+        width: 160px;
+      }
+    }
+  }
+}
+//centering all the elements on the page looked a little bit weird for me, decided
+//to go for a little bigger margin instead; probably not the best idea on really
+//big screens
+@media screen and (min-height: 850px){
+  h1{
+    padding-bottom: 10%;
+  }
+}
